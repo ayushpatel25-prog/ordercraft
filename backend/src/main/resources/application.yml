@@ -1,0 +1,138 @@
+server:
+  port: ${PORT:8085}
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: ordercraft-backend
+  profiles:
+    active: dev
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+# Management & Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Application Security, Multi-Tenancy & JWT Configuration
+app:
+  jwt:
+    secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+    access-token-expiration-ms: 900000 # 15 minutes
+    refresh-token-expiration-ms: 604800000 # 7 days
+  cors:
+    allowed-origins: "http://localhost:4200,http://127.0.0.1:4200,http://localhost:3000"
+    allowed-methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    allowed-headers: "*"
+  storage:
+    endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+    access-key: ${MINIO_ACCESS_KEY:ordercraft}
+    secret-key: ${MINIO_SECRET_KEY:ordercraft123}
+    bucket: ordercraft-invoices
+
+# SpringDoc OpenAPI / Swagger Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+
+---
+# Local Development / Zero-Config H2 Profile with MySQL Compatibility
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:ordercraftdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+---
+# Production MySQL 8 Profile with Flyway Migrations
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/ordercraft?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USER:ordercraft_app}
+    password: ${MYSQL_PASSWORD:OrderCraft@2026}
+    hikari:
+      maximum-pool-size: 25
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+      max-lifetime: 1200000
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          batch_size: 50
+          order_inserts: true
+          order_updates: true
+
+---
+# Enterprise Oracle Database 19c/21c/23ai Profile
+spring:
+  config:
+    activate:
+      on-profile: oracle
+  datasource:
+    url: ${ORACLE_URL:jdbc:oracle:thin:@//localhost:1521/ORCLPDB1}
+    driverClassName: oracle.jdbc.OracleDriver
+    username: ${ORACLE_USER:ORDERCRAFT}
+    password: ${ORACLE_PASSWORD:OrderCraft@2026}
+    hikari:
+      maximum-pool-size: 25
+      minimum-idle: 5
+      connection-timeout: 30000
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          batch_size: 50
