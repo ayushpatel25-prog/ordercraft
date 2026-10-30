@@ -1,12 +1,15 @@
 # OrderCraft: Enterprise Manufacturing Order Management System (OMS)
 
-[![Build & Test](https://github.com/ayushpatel/ordercraft/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushpatel/ordercraft/actions)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://ayushpatel25-prog.github.io/ordercraft/)
+[![Build & Test](https://github.com/ayushpatel25-prog/ordercraft/actions/workflows/ci.yml/badge.svg)](https://github.com/ayushpatel25-prog/ordercraft/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Angular](https://img.shields.io/badge/Angular-17.3-red.svg)](https://angular.io/)
 [![Currency](https://img.shields.io/badge/Currency-INR%20(%E2%82%B9)-orange.svg)](#)
 
 > **OrderCraft** is an enterprise-grade full-stack Manufacturing Order Management System that automates the end-to-end **Order-to-Cash (O2C)** and **Procure-to-Pay (P2P)** manufacturing lifecycle.
+
+🌐 **Live Application URL**: [https://ayushpatel25-prog.github.io/ordercraft/](https://ayushpatel25-prog.github.io/ordercraft/)
 
 ---
 
