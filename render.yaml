@@ -1,0 +1,27 @@
+services:
+  # Backend Service (Spring Boot)
+  - type: web
+    name: ordercraft-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8085
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  # Frontend Service (Angular + Nginx)
+  - type: web
+    name: ordercraft-frontend
+    env: docker
+    dockerfilePath: frontend/Dockerfile
+    dockerContext: frontend
+    plan: free
+    region: oregon
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
