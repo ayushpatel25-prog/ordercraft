@@ -85,6 +85,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- PostgreSQL Database Driver (for Render / Supabase / Cloud deployment) -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Distributed Scheduling via ShedLock -->
         <dependency>
             <groupId>net.javacrumbs.shedlock</groupId>

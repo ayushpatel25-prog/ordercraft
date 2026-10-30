@@ -1,5 +1,12 @@
+databases:
+  - name: ordercraft-db
+    databaseName: ordercraft
+    user: ordercraft_admin
+    plan: free
+    region: oregon
+
 services:
-  # Backend Service (Spring Boot)
+  # Spring Boot 3.3 Backend API
   - type: web
     name: ordercraft-backend
     env: docker
@@ -12,8 +19,22 @@ services:
         value: 8085
       - key: SPRING_PROFILES_ACTIVE
         value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: ordercraft-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: ordercraft-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: ordercraft-db
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
 
-  # Frontend Service (Angular + Nginx)
+  # Angular Frontend (Nginx)
   - type: web
     name: ordercraft-frontend
     env: docker
