@@ -10,7 +10,12 @@
 
 > **OrderCraft** is an enterprise-grade full-stack Manufacturing Order Management System that automates the end-to-end **Order-to-Cash (O2C)** and **Procure-to-Pay (P2P)** manufacturing lifecycle.
 
-🌐 **Live Application URL**: [https://ayushpatel25-prog.github.io/ordercraft/](https://ayushpatel25-prog.github.io/ordercraft/)
+### 🌐 Live Production Deployments
+- **Production Frontend (Vercel)**: 👉 [https://frontend-xi-nine-noivtlmj7b.vercel.app](https://frontend-xi-nine-noivtlmj7b.vercel.app)
+- **Production Frontend (GitHub Pages)**: 👉 [https://ayushpatel25-prog.github.io/ordercraft/](https://ayushpatel25-prog.github.io/ordercraft/)
+- **Production Backend API (Render)**: 👉 [https://ordercraft-backend-dvfg.onrender.com](https://ordercraft-backend-dvfg.onrender.com)
+- **Interactive Swagger UI Docs**: 👉 [https://ordercraft-backend-dvfg.onrender.com/swagger-ui/index.html](https://ordercraft-backend-dvfg.onrender.com/swagger-ui/index.html)
+- **Cloud Database**: Managed PostgreSQL on Render (`ordercraft-db`)
 
 ---
 

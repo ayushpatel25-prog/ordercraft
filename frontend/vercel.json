@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "http://localhost:8085/api/$1"
+      "destination": "https://ordercraft-backend-dvfg.onrender.com/api/$1"
     },
     {
       "source": "/(.*)",
