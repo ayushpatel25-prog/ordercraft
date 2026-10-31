@@ -22,7 +22,12 @@ public class User {
     private Long id;
 
     @Column(name = "tenant_id", nullable = false)
-    private Long tenantId;
+    @Builder.Default
+    private Long tenantId = 1L;
+
+    @Column(name = "is_active", nullable = false)
+    @Builder.Default
+    private Boolean isActive = true;
 
     @Column(name = "public_id", nullable = false, unique = true, length = 36)
     @Builder.Default
@@ -81,8 +86,17 @@ public class User {
         return lockedUntil == null || lockedUntil.isBefore(LocalDateTime.now());
     }
 
+    public Boolean getIsActive() {
+        return this.isActive != null ? this.isActive : "ACTIVE".equalsIgnoreCase(this.status);
+    }
+
+    public void setIsActive(Boolean active) {
+        this.isActive = active;
+        this.status = Boolean.TRUE.equals(active) ? "ACTIVE" : "DEACTIVATED";
+    }
+
     public boolean isActive() {
-        return "ACTIVE".equalsIgnoreCase(this.status);
+        return Boolean.TRUE.equals(getIsActive());
     }
 
     @PreUpdate
